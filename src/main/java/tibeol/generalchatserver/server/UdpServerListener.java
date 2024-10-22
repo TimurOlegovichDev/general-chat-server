@@ -10,7 +10,7 @@ import java.net.DatagramSocket;
 
 @Slf4j
 @Component
-public class UdpServer extends Thread{
+public class UdpServerListener extends Thread{
 
     private final int port;
 
@@ -19,7 +19,7 @@ public class UdpServer extends Thread{
     private DatagramSocket socket;
     private volatile boolean running = true;
 
-    public UdpServer(@Value("${port}") int port,
+    public UdpServerListener(@Value("${port}") int port,
                      @Value("${address}") String address) {
         this.port = port;
         this.address = address;
