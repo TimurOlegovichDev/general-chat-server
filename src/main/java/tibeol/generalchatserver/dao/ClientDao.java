@@ -19,11 +19,11 @@ public class ClientDao {
         return (List<Client>) clientRepository.findAll();
     }
 
-    public Client findById(Long id) {
-       if(clientRepository.findById(id).isEmpty()){
-           throw new NoSuchElementException("Client with id " + id + " not found");
+    public Client findById(String name) {
+       if(clientRepository.findById(name).isEmpty()){
+           throw new NoSuchElementException("Client with name " + name + " not found");
        } else {
-           return clientRepository.findById(id).get();
+           return clientRepository.findById(name).get();
        }
     }
 
@@ -31,7 +31,7 @@ public class ClientDao {
         return clientRepository.save(client);
     }
 
-    public void delete(Client client) {
-        clientRepository.delete(client);
+    public void delete(String name) {
+        clientRepository.deleteById(name);
     }
 }

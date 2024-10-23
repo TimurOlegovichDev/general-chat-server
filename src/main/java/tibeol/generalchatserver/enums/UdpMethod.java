@@ -5,21 +5,20 @@ import lombok.Getter;
 @Getter
 public enum UdpMethod {
 
-    GET("GET"),
-    POST("POST"),
-    PATCH("PATCH"),
-    DELETE("DELETE"),
-    NOT_SUPPORTED(null);
-
-    private final String type;
-
-    UdpMethod(String type) {
-        this.type = type;
-    }
+    GET_MESSAGES,
+    SEND_MESSAGE,
+    PATCH_USER,
+    DELETE_USER,
+    LOGIN,
+    REGISTER,
+    NOT_SUPPORTED;
 
     public static UdpMethod of(String data){
         try{
-            return UdpMethod.valueOf(data.substring(0, data.indexOf(':')));
+            return UdpMethod.valueOf(
+                    data.substring(0, data.indexOf('&'))
+                            .toUpperCase()
+            );
         } catch (Exception e){
             return NOT_SUPPORTED;
         }
