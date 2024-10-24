@@ -13,12 +13,9 @@ public enum UdpMethod {
     REGISTER,
     NOT_SUPPORTED;
 
-    public static UdpMethod of(String data){
+    public static UdpMethod of(String method){
         try{
-            return UdpMethod.valueOf(
-                    data.substring(0, data.indexOf('&'))
-                            .toUpperCase()
-            );
+            return UdpMethod.valueOf(method);
         } catch (Exception e){
             return NOT_SUPPORTED;
         }

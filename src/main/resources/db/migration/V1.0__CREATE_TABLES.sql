@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS client (
      user_name VARCHAR(255) PRIMARY KEY,
-     password BYTEA NOT NULL,
+     password VARCHAR(255) NOT NULL,
      address INET NOT NULL,
      port INT NOT NULL
 );

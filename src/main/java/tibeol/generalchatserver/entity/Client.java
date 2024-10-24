@@ -18,7 +18,7 @@ public class Client {
     @Id
     private final String userName;
 
-    private final char[] password;
+    private final String password;
 
     private final InetAddress address;
     private final int port;
@@ -27,7 +27,7 @@ public class Client {
     private List<Message> messages;
 
     public Client(ClientDto clientDto, UdpRequest request) {
-        this.userName = clientDto.userName();
+        this.userName = clientDto.username();
         this.password = clientDto.password();
         this.address = request.getAddress();
         this.port = request.getPort();

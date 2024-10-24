@@ -25,25 +25,24 @@ public class UdpPacketHandler {
     private final ClientService clientService;
     private final UdpServerSender serverSender;
 
-    @ExceptionHandler(IOException.class)
-    public void handleIOException(IOException e, Client client) {
-        log.error("Ошибка: {}", e.getMessage());
-        serverSender.send(
-                UdpResponse.serverError("Ошибка на сервере " + e.getMessage()),
-                client
-        );
-    }
-
     public void handle(DatagramPacket packet) throws IOException {
         UdpRequest request = new UdpRequest(
-                new String(packet.getData()),
+                new String(packet.getData()).replaceAll("\\s+", ""),
                 packet.getAddress(),
                 packet.getPort()
         );
-        log.info("Получен пакет: {}", request.getData());
+        log.info("Получен пакет: {}", request);
         switch (request.getMethod()) {
             case REGISTER -> {
                 clientController.register(
+                        new Client(
+                                clientService.deserializeClientDto(request.getData()),
+                                request
+                        )
+                );
+            }
+            case LOGIN -> {
+                clientController.login(
                         new Client(
                                 clientService.deserializeClientDto(request.getData()),
                                 request
@@ -56,5 +55,13 @@ public class UdpPacketHandler {
 
     private void handleNotSupportedPacket(DatagramPacket packet) {
         // Обработка неподдерживаемого пакета
+    }
+
+    public void handleIOException(IOException e, Client client) {
+        log.error("Ошибка: {}", e.getMessage());
+        serverSender.send(
+                UdpResponse.serverError("Ошибка на сервере: " + e.getMessage()),
+                client
+        );
     }
 }

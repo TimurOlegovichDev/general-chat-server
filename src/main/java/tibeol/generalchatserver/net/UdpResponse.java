@@ -25,4 +25,12 @@ public class UdpResponse {
     public static UdpResponse serverError(String body){
         return new UdpResponse(UdpResponseCode.INTERNAL_SERVER_ERROR, body);
     }
+
+    @Override
+    public String toString() {
+        return "UdpResponse{" +
+                "code=" + code.getCode() +
+                ", body='" + body + '\'' +
+                '}';
+    }
 }
