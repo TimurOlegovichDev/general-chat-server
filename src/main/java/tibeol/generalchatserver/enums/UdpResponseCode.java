@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum UdpResponseCode {
 
+    HAS_MESSAGE(1),
     OK(200),
     BAD(400),
     INTERNAL_SERVER_ERROR(500);

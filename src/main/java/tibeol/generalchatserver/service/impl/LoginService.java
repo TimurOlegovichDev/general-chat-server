@@ -10,7 +10,7 @@ import tibeol.generalchatserver.service.ActionService;
 
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class LoginService implements ActionService {
+public class LoginService implements ActionService<Client> {
 
     private final ClientDao clientDao;
 
@@ -19,6 +19,7 @@ public class LoginService implements ActionService {
         try {
             Client expectedClient = clientDao.findById(client.getUserName());
             if(expectedClient.getPassword().equals(client.getPassword())) {
+                clientDao.save(client);
                 return UdpResponse.ok("Вход выполнен успешно");
             }
             return UdpResponse.bad("Неверный пароль");

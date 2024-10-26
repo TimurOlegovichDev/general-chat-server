@@ -10,7 +10,7 @@ import tibeol.generalchatserver.service.ActionService;
 
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class RegistrationService implements ActionService {
+public class RegistrationService implements ActionService<Client> {
 
     private final ClientDao clientDao;
 

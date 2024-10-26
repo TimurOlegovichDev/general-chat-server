@@ -5,8 +5,10 @@ import lombok.Getter;
 @Getter
 public enum UdpMethod {
 
-    GET_MESSAGES,
-    SEND_MESSAGE,
+    GET_MESSAGE,
+    HAS_MESSAGE,
+    POST_MESSAGE,
+    CONNECT,
     PATCH_USER,
     DELETE_USER,
     LOGIN,

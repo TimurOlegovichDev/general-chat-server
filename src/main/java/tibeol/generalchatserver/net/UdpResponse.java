@@ -9,7 +9,7 @@ public class UdpResponse {
     private final UdpResponseCode code;
     private final String body;
 
-    private UdpResponse(UdpResponseCode code, String body) {
+    public UdpResponse(UdpResponseCode code, String body) {
         this.code = code;
         this.body = body;
     }

@@ -11,10 +11,7 @@ import tibeol.generalchatserver.util.JsonConverter;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetSocketAddress;
-import java.net.SocketException;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 
 @Slf4j
@@ -29,12 +26,20 @@ public class UdpServerSender {
         this.jsonConverter = jsonConverter;
     }
 
-    public void send(UdpResponse response, Client client) {
+    public void send(UdpResponse response, InetAddress address, int port) {
         try {
             byte[] data = jsonConverter.toJson(response).getBytes();
-            DatagramPacket packet = new DatagramPacket(data, data.length, client.getAddress(), client.getPort());
+            DatagramPacket packet = new DatagramPacket(
+                    data,
+                    data.length,
+                    address,
+                    port
+            );
             socket.send(packet);
-            log.info("Sent UDP response to client with address: {} and port: {} ", client.getAddress(), client.getPort());
+            log.info("Sent UDP response to client with address: {} and port: {} ",
+                    address,
+                    port
+            );
         } catch (IOException e) {
             log.error("Error sending UDP response: {}", e.getMessage());
         }

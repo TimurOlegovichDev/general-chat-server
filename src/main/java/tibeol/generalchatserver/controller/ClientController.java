@@ -9,6 +9,8 @@ import tibeol.generalchatserver.server.UdpServerSender;
 import tibeol.generalchatserver.service.impl.LoginService;
 import tibeol.generalchatserver.service.impl.RegistrationService;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class ClientController {
@@ -21,14 +23,16 @@ public class ClientController {
     public void login(Client client) {
         serverSender.send(
                 loginService.serve(client),
-                client
+                client.getAddress(),
+                client.getPort()
         );
     }
 
     public void register(Client client) {
         serverSender.send(
                 registrationService.serve(client),
-                client
+                client.getAddress(),
+                client.getPort()
         );
     }
 
@@ -36,7 +40,11 @@ public class ClientController {
         clientDao.save(client);
     }
 
-    public void getClient(String name) {
-        clientDao.findById(name);
+    public Client getClient(String name) {
+        return clientDao.findById(name);
+    }
+
+    public List<Client> getClients() {
+        return clientDao.findAll();
     }
 }
